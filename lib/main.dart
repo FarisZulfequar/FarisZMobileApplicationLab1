@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  
   const MyHomePage({super.key, required this.title});
   final String title;
 
@@ -28,13 +31,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int duration = 1;
   int _numTimer = 0;
+  bool _timerIsOn = false;
 
-  void _incrementCounter() {
+  void _increaseTimer() {
+    _numTimer += 1;
+  }
+
+  void _startTimer() {
     setState(() {
-      _numTimer++;
+        Timer(const Duration(seconds: 1), _increaseTimer);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +72,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.only(left: 25),
               child: FloatingActionButton(
-                onPressed: _incrementCounter,
+                onPressed: () {
+                  _startTimer();
+                },
                 tooltip: 'Increment',
-                child: const Icon(Icons.play_circle_outline),
                 backgroundColor: Color(0xFF147CD4),
+                child: const Icon(Icons.play_circle_outline),
+                shape : CircleBorder()
               ),
             ),
           ],
